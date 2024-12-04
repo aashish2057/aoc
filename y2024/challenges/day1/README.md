@@ -15,4 +15,15 @@ between both lists and add up the differences at all the indexes to get the tota
 4. Loop through the lists and add the absolute value of the differenc to the total distance
 5. Return the total distance
 
+Part 2
+---
+Calculate the similarity score by getting the product of a locationId in the first list and the number of occurances of that
+locationId in the 2nd list. Sum all the products for all locationIds in the first list to get simliarity score.
+
+1. Create a map of 2nd list where key is the locationId and value is the number of occurances of that locationId
+2. Create variable to keep track of similarity score
+3. Loop through first list and multiply the locationId by the value when access the map with the locationId as key
+4. Add to similairty
+5. Return similarity score
+
 
