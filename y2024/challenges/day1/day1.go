@@ -19,9 +19,9 @@ func Part1() int {
 }
 
 func Part2() int {
-    path := "./inputs/day1.txt"
+    filePath := "./inputs/day1.txt"
 
-    locations1, locations2 := processFile(path)
+    locations1, locations2 := processFile(filePath)
 
     mapLocations2 := getMapOccuranceOfLocationIds(locations2)
 
@@ -33,6 +33,8 @@ func processFile(path string) ([]int, []int) {
     var locations2 []int
 
     file, err := os.Open(path)
+    defer file.Close()
+
     util.CheckError(err)
 
     scanner := bufio.NewScanner(file)
