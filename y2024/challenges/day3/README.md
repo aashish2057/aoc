@@ -13,3 +13,8 @@ substrings together.
 
 Part 2
 ---
+
+1. Find all valid substrings including do() and don't()
+2. Remove all substrings if they have been "disabled"
+3. Get the product for all enabled substrings
+4. Sum all substring products together
