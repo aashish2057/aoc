@@ -7,8 +7,6 @@ import (
     "strings"
     "regexp"
 
-    "fmt"
-
     "github.com/aashish2057/aoc/y2024/util"
 )
 
@@ -37,15 +35,15 @@ func Part2() int {
     memories := processFile(filePath)
     totalProduct := 0
 
-    for _, memory := range memories {
+    allInstructions := strings.Join(memories, "")
 
-        validSubStrings := findAllValidSubStrings(memory, `(mul\(\d{1,3},\d{1,3}\))|(don't\(\))|(do\(\))`)
+    validSubStrings := findAllValidSubStrings(allInstructions,
+        `(mul\(\d{1,3},\d{1,3}\))|(don't\(\))|(do\(\))`)
 
-        cleanedSubStrings := removeDisabledInstructions(validSubStrings)
+    cleanedSubStrings := removeDisabledInstructions(validSubStrings)
 
-        for _, subString := range cleanedSubStrings {
-            totalProduct += calculateProduct(subString)
-        }
+    for _, subString := range cleanedSubStrings {
+        totalProduct += calculateProduct(subString)
     }
 
     return totalProduct
@@ -58,9 +56,10 @@ func processFile(path string) []string {
     util.CheckError(err)
 
     scanner := bufio.NewScanner(file)
-
+    counter := 1
     for scanner.Scan() {
         memories = append(memories, scanner.Text())
+        counter++
     }
 
     return memories
@@ -78,25 +77,22 @@ func removeDisabledInstructions(subStrings []string) []string {
     disabled := false
 
     var cleanedSubStrings []string
-    var debug []string
 
     for _, subString := range subStrings {
-        if subString == "don't()" {
-            // fmt.Println(index, subString)
+
+        switch subString {
+        case "don't()":
             disabled = true
-        } else if subString == "do()" {
-            // fmt.Println(index, subString)
+        case "do()":
             disabled = false
-        } else {
+        default:
             if !disabled {
-                // fmt.Println(index, "included", subString)
                 cleanedSubStrings = append(cleanedSubStrings, subString)
-            } else {
-                // fmt.Println(index, "disabled", subString)
-                debug = append(debug, subString)
             }
         }
+
     }
+
     return cleanedSubStrings
 }
 
@@ -110,7 +106,5 @@ func calculateProduct(substring string) int {
 
     num2, err := strconv.Atoi(numbers[1])
     util.CheckError(err)
-
-    fmt.Println(substring, num1 * num2)
     return num1 * num2
 }
