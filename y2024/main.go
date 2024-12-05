@@ -6,6 +6,7 @@ import (
     "github.com/aashish2057/aoc/y2024/challenges/day1"
     "github.com/aashish2057/aoc/y2024/challenges/day2"
     "github.com/aashish2057/aoc/y2024/challenges/day3"
+    "github.com/aashish2057/aoc/y2024/challenges/day4"
 )
 
 func main() {
@@ -19,4 +20,7 @@ func main() {
     fmt.Println("--- Day 3: Mull It Over ---")
     fmt.Println("Part 1: ", day3.Part1())
     fmt.Println("Part 2: ", day3.Part2())
+    fmt.Println("--- Day 4: Cares Search ---")
+    fmt.Println("Part 1: ", day4.Part1())
+    fmt.Println("Part 2: ", day4.Part2())
 }
