@@ -21,6 +21,27 @@ pub fn part1() -> i64 {
     return sum;
 }
 
+pub fn part2() -> i64 {
+    let database = read_to_string("./inputs/day2.txt").unwrap();
+    let ranges = get_product_ranges(&database.trim());
+    let mut sum: i64 = 0;
+
+    for range in ranges {
+        let ids = get_ids(range);
+
+        let id_range = generate_range(ids[0], ids[1]);
+
+        for id in id_range {
+            if invalid_id_2(&id) {
+                let invalid_id: i64 = id.parse().unwrap();
+                sum += invalid_id;
+            }
+        }
+    }
+
+    return sum;
+}
+
 fn get_product_ranges(database: &str) -> Vec<&str> {
     database.split_terminator(",").collect()
 }
@@ -55,6 +76,29 @@ fn invalid_id(id: &str) -> bool {
     invalid_id
 }
 
+fn invalid_id_2(id: &str) -> bool {
+    let mut split = 2;
+    let mut invalid_id = false;
+
+    while split <= id.len() {
+        if id.len() % split == 0 {
+            let chunk_size = id.len() / split;
+
+            let parts: Vec<&str> = (0..split)
+                .map(|i| &id[i * chunk_size..(i + 1) * chunk_size])
+                .collect();
+
+            if parts.windows(2).all(|w| w[0] == w[1]) {
+                invalid_id = true;
+                break;
+            }
+        }
+        split += 1;
+    }
+
+    return invalid_id;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -80,6 +124,16 @@ mod tests {
         assert!(!invalid_id("222122"));
         assert!(!invalid_id("247486"));
         assert!(!invalid_id("38393833"));
+    }
+
+    #[test]
+    fn test_invalid_id_2() {
+        assert!(invalid_id_2("111"));
+        assert!(invalid_id_2("999"));
+        assert!(invalid_id_2("1010"));
+        assert!(invalid_id_2("565656"));
+        assert!(invalid_id_2("824824824"));
+        assert!(invalid_id_2("2121212121"));
     }
 
     #[test]
