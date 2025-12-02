@@ -22,7 +22,7 @@ pub fn part2() -> i32 {
     for instruction in read_to_string("./inputs/day1.txt").unwrap().lines() {
         password += move_dial_2(dial, instruction);
         dial = move_dial(dial, instruction);
-        println!("dial: {dial}, instruction: {instruction}, password: {password}");
+        // println!("dial: {dial}, instruction: {instruction}, password: {password}");
     }
 
     return password;
