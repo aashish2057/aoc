@@ -10,6 +10,16 @@ pub fn part1() -> i64 {
     sum
 }
 
+pub fn part2() -> i64 {
+    let mut sum = 0;
+
+    for bank in read_to_string("./inputs/day3.txt").unwrap().lines() {
+        sum += largest_joltage_2(&bank);
+    }
+
+    sum
+}
+
 fn largest_joltage(bank: &str) -> i64 {
     let mut res: [i64; 2] = [0; 2];
 
@@ -40,6 +50,23 @@ fn largest_joltage(bank: &str) -> i64 {
     (res[0] * 10) + res[1]
 }
 
+fn largest_joltage_2(bank: &str) -> i64 {
+    let mut res: Vec<char> = Vec::new();
+    let mut remove_digits = bank.len() - 12;
+
+    for c in bank.chars() {
+        while remove_digits > 0 && !res.is_empty() && res.last().unwrap() < &c {
+            res.pop();
+            remove_digits -= 1;
+        }
+        res.push(c);
+    }
+
+    res.truncate(12);
+
+    res.into_iter().collect::<String>().parse().unwrap()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -56,6 +83,14 @@ mod tests {
             ),
             99
         );
+    }
+
+    #[test]
+    fn test_largest_joltage_2() {
+        assert_eq!(largest_joltage_2("987654321111111"), 987654321111);
+        assert_eq!(largest_joltage_2("811111111111119"), 811111111119);
+        assert_eq!(largest_joltage_2("234234234234278"), 434234234278);
+        assert_eq!(largest_joltage_2("818181911112111"), 888911112111);
     }
 
     #[test]
