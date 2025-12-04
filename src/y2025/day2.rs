@@ -1,7 +1,7 @@
 use std::fs::read_to_string;
 
 pub fn part1() -> i64 {
-    let database = read_to_string("./inputs/day2.txt").unwrap();
+    let database = read_to_string("./inputs/2025day2.txt").unwrap();
     let ranges = get_product_ranges(&database.trim());
     let mut sum: i64 = 0;
 
@@ -22,7 +22,7 @@ pub fn part1() -> i64 {
 }
 
 pub fn part2() -> i64 {
-    let database = read_to_string("./inputs/day2.txt").unwrap();
+    let database = read_to_string("./inputs/2025day2.txt").unwrap();
     let ranges = get_product_ranges(&database.trim());
     let mut sum: i64 = 0;
 

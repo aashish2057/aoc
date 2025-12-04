@@ -4,7 +4,7 @@ pub fn part1() -> i32 {
     let mut dial = 50;
     let mut password = 0;
 
-    for instruction in read_to_string("./inputs/day1.txt").unwrap().lines() {
+    for instruction in read_to_string("./inputs/2025day1.txt").unwrap().lines() {
         dial = move_dial(dial, instruction);
         // println!("dial: {dial}, instruction: {instruction}, password: {password}");
         if dial == 0 {
@@ -19,7 +19,7 @@ pub fn part2() -> i32 {
     let mut dial = 50;
     let mut password = 0;
 
-    for instruction in read_to_string("./inputs/day1.txt").unwrap().lines() {
+    for instruction in read_to_string("./inputs/2025day1.txt").unwrap().lines() {
         password += move_dial_2(dial, instruction);
         dial = move_dial(dial, instruction);
         // println!("dial: {dial}, instruction: {instruction}, password: {password}");

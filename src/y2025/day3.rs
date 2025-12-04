@@ -3,7 +3,7 @@ use std::fs::read_to_string;
 pub fn part1() -> i64 {
     let mut sum = 0;
 
-    for bank in read_to_string("./inputs/day3.txt").unwrap().lines() {
+    for bank in read_to_string("./inputs/2025day3.txt").unwrap().lines() {
         sum += largest_joltage(&bank);
     }
 
@@ -13,7 +13,7 @@ pub fn part1() -> i64 {
 pub fn part2() -> i64 {
     let mut sum = 0;
 
-    for bank in read_to_string("./inputs/day3.txt").unwrap().lines() {
+    for bank in read_to_string("./inputs/2025day3.txt").unwrap().lines() {
         sum += largest_joltage_2(&bank);
     }
 
