@@ -214,7 +214,7 @@ mod tests {
 
     #[test]
     fn test_forklift_2() {
-        let mut grid: Vec<Vec<char>> = vec![
+        let grid: Vec<Vec<char>> = vec![
             vec!['.', '.', '@', '@', '.', '@', '@', '@', '@', '.'],
             vec!['@', '@', '@', '.', '@', '.', '@', '.', '@', '@'],
             vec!['@', '@', '@', '@', '@', '.', '@', '.', '@', '@'],
