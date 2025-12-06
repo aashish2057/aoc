@@ -34,7 +34,7 @@ fn finish_homework(homework: Vec<Vec<String>>) -> i64 {
     let mut grand_total = 0;
 
     for problem in homework {
-        let operand = problem.last().expect("Empty problem?");
+        let operator = problem.last().expect("Empty problem?");
         let total: i64;
 
         let numbers: Vec<i64> = problem
@@ -43,9 +43,58 @@ fn finish_homework(homework: Vec<Vec<String>>) -> i64 {
             .map(|num| num.parse().expect("Unable to parse"))
             .collect();
 
-        match operand.as_str() {
+        match operator.as_str() {
             "+" => total = numbers.iter().sum(),
             "*" => total = numbers.iter().product(),
+            _ => panic!("unexpected input"),
+        }
+        grand_total += total;
+    }
+
+    grand_total
+}
+
+fn finish_homework_2(homework: Vec<Vec<String>>) -> i64 {
+    let mut grand_total = 0;
+
+    for problem in homework {
+        let operator = problem.last().expect("Empty problem?");
+
+        let total: i64;
+
+        let max_length = problem
+            .iter()
+            .take(problem.len() - 1)
+            .map(|num| num.len())
+            .max()
+            .unwrap();
+
+        let mut numbers: Vec<Vec<char>> = vec![Vec::new(); max_length];
+
+        for i in 0..max_length {
+            for j in 0..problem.len() - 1 {
+                if i < problem[j].len() {
+                    match problem[j].chars().nth(problem[j].len() - 1 - i) {
+                        Some(c) => numbers[i].push(c),
+                        _ => (),
+                    }
+                }
+            }
+        }
+
+        println!("{:?}", numbers);
+
+        let nums: Vec<i64> = numbers
+            .iter()
+            .map(|num| {
+                let s: String = num.iter().collect();
+                s.parse().unwrap()
+            })
+            .collect();
+
+        match operator.as_str() {
+            "+" => total = nums.iter().sum(),
+            "*" => total = nums.iter().product(),
             _ => panic!("unexpected input"),
         }
         grand_total += total;
@@ -85,5 +134,15 @@ mod tests {
         parse("./inputs/2025day6test.txt", &mut homework);
 
         assert_eq!(finish_homework(homework), 4277556);
+    }
+
+    #[test]
+    fn test_finish_homework_2() {
+        let mut homework: Vec<Vec<String>> =
+            vec![Vec::new(); get_number_of_columns("./inputs/2025day6test.txt")];
+
+        parse("./inputs/2025day6test.txt", &mut homework);
+
+        assert_eq!(finish_homework_2(homework), 3263827);
     }
 }
